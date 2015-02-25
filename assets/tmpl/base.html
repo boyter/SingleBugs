@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>SingleBugs</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/css/" type="text/css" />
+		<link rel="icon" type="image/png" href="data:image/png;base64, AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A2traLpOTk4b///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wCTk5OG2NjYMMHBwUw+Pj7w////AP///wD///8A8/PzDpmZmX67u7tUu7u7VJmZmX7z8/MO////AP///wD///8APj4+8MHBwUzt7e0VOTk597Ozs17///8A8vLyD1paWs0zMzP/rq6uZK6urmQzMzP/WlpazfLy8g////8As7OzXjk5Offt7e0V////AKenp2s2Njb6kpKShmhoaL0zMzP/MzMz/66urmSurq5kMzMz/zMzM/9oaGi9kpKShjY2Nvqnp6dr////AP///wD///8Avr6+UFFRUdczMzP/MzMz/zMzM/+urq5krq6uZDMzM/8zMzP/MzMz/1FRUde+vr5Q////AP///wDg4OAmzs7OPM7Ozjx5eXmnMzMz/zMzM/8zMzP/rq6uZK6urmQzMzP/MzMz/zMzM/95eXmnzs7OPM7Ozjzg4OAlUVFR2TMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/5GRkYmRkZGJMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/T09P2////wD///8A////AF9fX8czMzP/MzMz/zMzM/82Njb6NjY2+jMzM/8zMzP/MzMz/2FhYcX///8A////AP///wD///8A////AMTExEc5OTn3Q0ND6JqamnzLy8s/3t7eKNra2i6+vr5QnZ2deUxMTOA5OTn3xMTER////wD///8A////APDw8BNERETpioqKkff39wqEhISYRERE6DQ0NPw0NDT8RERE6ISEhJj4+PgHkZGRiEREROnw8PAT////AP///wCoqKhrTExM3vv7+wOnp6dtMzMz/zMzM/8zMzP/MzMz/zMzM/8zMzP/p6enbfv7+wNMTEzeqKioa////wD///8AhISEmXl5eab///8AmZmZfjMzM/8zMzP/MzMz/zMzM/8zMzP/MzMz/5mZmX7///8AeXl5poSEhJn///8A////AHBwcLKkpKRx////AOPj4yJHR0flMzMz/zMzM/8zMzP/MzMz/0dHR+Xj4+Mi////AKGhoXRwcHCy////AP///wD29vYK/f39A////wD///8A8PDwEmZmZr0zMzP/MzMz/2ZmZr3w8PAS////AP///wD9/f0A9/f3Cv///wD///8A////AP///wD///8A////AP///wDi4uIlZGRkwWRkZMHi4uIl////AP///wD///8A////AP///wD///8A//8AAL/9AAC//QAAuZ0AAMGDAADhhwAA4YcAAAAAAADgBwAA5+cAAMgTAADYGwAAmBkAALgdAAD8PwAA/n8AAA== "/>
+	</head>
+	<body>
+ 
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="./">
+						<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwABEI8AARCPAbZ2bGgAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjExR/NCNwAAAv9JREFUWEfllr1LVXEcxn0bBHEwXZSECMHBQQRdQhpcylmaHEsxEAqxcGkIh6aWEgIRiYTwH8gCcVMIkaQmIQraeiNIWnrv8xye37m/e8+5ek9xpx744D3P8/1+f+def+el4W+0t7fXDDPw2Ohzs+P6ioXEQ/hdgTxX1VEsMhotWsmoy4qL5kY4C522yuT8AuxD3uJCmWoa3VYm/E7QGtkcU/9HDdm1lQqvDTac14Jq29yeCm/X+YytkjAXHR7aSoW36qwIq25PhXfobNFWSZjzDn9Cq2357fDNWRG+Q7vHaE4raLayedslYU44FIO25fdFflH6PEZzBiN/wnZJmL1RwZxt+R2RX5QOj9GcucjvtV0ugrDDDyC9sfA5bJ4ipJuZz7pxaab8fdtZEU65SCzYlj8Mn6LsOFQ77Hb1L0TZlO2sCFvguQu1YbQxkw3J327QlfIUPkMYGJCnTDXd7tG94yqEzafZLcqqioJ++OgG8RZuwimXJOJYu/qESa8aieMuuAwvIMzRzH6XHC0KB+C1GwO/4BncgUtwHs6Yc3ARbsMO6BKMe1/BgMfXJhqWowH/yj2PrV00rVQMyeONyctiVjw2K8J10M+b13gU2linTdhkRdCa6zqBD5FZhAN/B80I13hR3qt5CK7B9QruQ15TYMfra4Y2Xl5NQLMq5+sSH/KIrAjjW3Me2y5V7XZFVkn+rbeaaOiBW3DUU7DWE9AMzepxeXVRpDvXFfgCecNiivwCQjM1O/dtSUPEXQgN2qVPoNoGq+UE1KsZ8VWmNdwZCTN+EKlxxP4IfLUfc9wJqCeeEX+R8gcSht75wv3/JXQ5SsTxtLOY405g2nEijvV80GxlWqv0zsjBpAMxbrtM+LPwI6qrdgKqmXVUJvzxqG7SdhKE+/47aLKdEdkYhIdU3gkoG7OdEVkTaA3VLttOgk2bW7aqiho9hvWoXbIlb8le2WM5T9RsgdbatJWYj2yu2aqbWOOB19qwlZh6870BJ23VTVrDa6VvzP+zGhr+AL6yO8FIRebTAAAAAElFTkSuQmCC" /> SingleBugs
+					</a>
+					<div class="nav-collapse collapse">
+						<p class="navbar-text pull-right">
+							<a href="#projectModal" class="btn btn-primary" data-toggle="modal">Projects</a>
+							<a href="#issueModal" class="btn btn-primary" data-toggle="modal">Create Issue</a>
+						</p>
+						<ul class="nav">
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+	 
+		<div class="container-fluid">
+			
+			
+			<input type="text" id="search" autocomplete="off" placeholder="search" style="width:100%" ></input>
+			
+			<div style="position:relative; top:-43px; float:right;">
+				<input type="checkbox" id="includeclosed" title="View closed projects/issues" />
+			</div>
+			
+			
+			
+			<div class="row-fluid">
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-list" id="projectspeople">
+						</ul>
+					</div><!--/.well -->
+				</div><!--/span-->
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-list" id="issues">
+						</ul>
+					</div><!--/.well -->
+				</div><!--/span-->
+				<div class="span6">
+					<div id="noteForm">
+						<textarea id="noteData" style="width:100%;" rows="6"></textarea>
+						<p>
+							<input id="addcomment" type="submit" value="Add Comment" name="submit" class="btn"></input> <button id="closeIssue" type="button" class="btn">Close Issue</button>
+						</p>
+					</div>
+
+					<div id="notes">
+					</div>
+					
+				</div><!--/span-->
+			</div><!--/row-->
+
+			<!-- Dialogs/Popups -->
+				
+			<div id="projectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Project Management</h3>
+				</div>
+				<div class="modal-body">
+				
+					<ul id="myTab" class="nav nav-tabs">
+						<li class="active">
+							<a href="#projectcreate" data-toggle="tab">Create Project</a>
+						</li>
+						<li>
+							<a href="#projectclose" data-toggle="tab">Close Project</a>
+						</li>
+					</ul>
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade in active" id="projectcreate">
+							<div id="projectModalError">
+							</div>
+							<input id="modalprojectname" type="text" placeholder="Project Name" /><br />
+							<button class="btn btn-primary" id="createProject">Create Project</button>
+						</div>
+						<div class="tab-pane fade" id="projectclose">
+							<select id="closeprojectid">
+							</select><br>
+							<p>
+							This action is not reversible! Do you wish to close this project and its issues? 
+							</p>
+							<button class="btn btn-danger" id="closeProject">Close Project</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">About</h3>
+				</div>
+				<div class="modal-body">
+					<p>
+					&copy; SingleBugs 2013 <a href="http://www.boyter.org/">http://www.boyter.org/</a>
+					</p>
+					<p>
+					Logo by <a href="http://www.visualpharm.com/">http://www.visualpharm.com/</a> used under Creative Commons.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				</div>
+			</div>
+			
+			
+			<div id="issueModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Create Issue</h3>
+				</div>
+				<div class="modal-body">
+					<div id="issueModalError">
+					</div>
+					<select id="issueprojectid">
+					</select><br>
+					
+					<input id="issuename" type="text" placeholder="Issue Name" /><br>
+					<textarea id="issuecontent" placeholder="Issue Content" rows="6"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button class="btn btn-primary" id="createIssue">Create Issue</button>
+				</div>
+			</div>
+				
+			<div id="confirmCloseIssueModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Are you sure?</h3>
+				</div>
+				<div class="modal-body">
+					<p>
+					This action is not reversible! Do you wish to close this issue? 
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+					<button class="btn btn-danger" id="closeIssueConfirm">Close Issue</button>
+				</div>
+			</div>
+			
+
+			<div id="about">
+				<a href="#aboutModal" data-toggle="modal">
+					<img alt="About" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjExR/NCNwAAA1NJREFUSEvdlblLXFEUhx3MpAhDClEIBoWAhYIg2CQKihA1roUyKIyKomgiGvd933B3tEhjoUPwX7DQarATbTQgOAiCaBMEBYfYntzv3nlmNGMc2/zgx3u8d853zt3ei/ivZUtLS4vOzc39XFpaullTU+Nramq6amxsvKqqqvKVlJRs8i49PT2aWJMSviKzs7O/1NbWno6Njcni4qIsLS1pz8/Py/T0tIyPj0tnZ6dUVFScEkuOSX1CCQkJr4qLi9cHBgZkZWVFlpeXdYG1tTXZ3t6Wra0tWV1d1QUoPjw8LM3NzVJYWLhObgATWg6H46WCeyYmJsTtdutu5+bmtHd2duT8/Fzb6/XK6OiohtNIf3+/tLa2SkFBgQdGAPeXIrOysr729PTIwsKCzMzMyOzsrL7i/f19ub291d7b29PwwcFBDe/u7tZuaGgQGLAM8o9siYmJ8ZWVlRfApqam7nlyclI2NjbE5/PJ8fGxeDyeOzgNdXV1SXt7u7S1tYnT6bxISkqKh2nQRi8yMjK6CWR6mF+ulq35tqbFgvf29urOOzo69BS1tLRIXV2dwIJp0EYOtUjeoaEhGRkZ0QaGmZqDgwM5OjrSI8CHh4f3CtA9cBZbbWPJy8vzwjRoo5iysrIzOsMUCjZdX15eyvX1tTYLDay+vl6qq6vF5XJJeXk50yPqzFDgDKZBG8WqwBu66uvr092xO6ypYAr8fr9YoogaseTn5wPTV8tqJ3G9gWnQRnFqgf0MmUXjyoIxn2pkorauhlriHhBFQlkV8MM0aKM4NbQLTqb6HHA6NdTqDtjDAqHAltUn5AKmQRvFqoe7gIuKijT4YYfPKaDOwi5MgzaKSU1NdVvdhkp6TgFYMA3ayBEVFZWtRnEZKgGHWwAGLJgGbcSheJeSkvItVBIOtwAMWAHmnTjWr2022wf1ffcGJ3DQTk5O7m1T7nnGu+BYcmHACjDviQ/UG7vd/kn9aHaCE8MxOeTCCLBCyq78VvljcnKyJycn59E1sUwMseQEcmH8UwTQxXv1ba9Ryd8zMzN/qL/WT7V9f2HuecY7YogN5DwJt8QQmUcWi+R8ZaeyK2DuecY7YogN75cZJBaJncB2Y09zcDidmHue8Y6YR376ERG/AZnhFlPBOckeAAAAAElFTkSuQmCC" />
+				</a>
+			</div>
+			
+		</div><!--/.fluid-container-->
+		
+	</body>
+</html>
