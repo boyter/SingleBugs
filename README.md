@@ -21,3 +21,9 @@ spotty.
 Generally you would want to put a compiled version of SingleBugs in a shared
 directory solution such as Dropbox. This will sync the data files across all environments where you
 might want to track bugs and doubles as a backup solution.
+
+Screenshots
+
+![General view](http://www.boyter.org/wp-content/uploads/2013/09/screenshot1.png)
+![Editing an issue](http://www.boyter.org/wp-content/uploads/2013/09/screenshot2.png)
+![Creating a new issue](http://www.boyter.org/wp-content/uploads/2013/09/screenshot3.png)
