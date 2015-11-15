@@ -16,7 +16,7 @@ via command line options such as
 
 This has been used for several years while developing https://searchcode.com/ and since it works
 100% offline has been a very useful when working in environments where network connectivity is 
-spotty. 
+spotty such as the train.
 
 Generally you would want to put a compiled version of SingleBugs in a shared
 directory solution such as Dropbox. This will sync the data files across all environments where you
