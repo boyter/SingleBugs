@@ -18,7 +18,8 @@ import (
 )
 
 // Flag inputs
-var portNumber = flag.Int("port", 8080, "port to bind to (default 8080)")
+var portNumber = flag.Int("port", 9100, "port to bind to (default 9100)")
+
 //var useTemplates = flag.Bool("tmpl", false, "use external templates (default false)")
 
 const dataPath = "data/"
@@ -246,14 +247,14 @@ func cssHandler(w http.ResponseWriter, r *http.Request) {
 func allprojectsHandler(w http.ResponseWriter, r *http.Request) {
 
 	includeclosed, err := strconv.ParseBool(r.FormValue("c"))
-	
+
 	if err != nil {
 		includeclosed = false
 	}
 
 	var proj = []Project{}
 	for i := range projects {
-	
+
 		if includeclosed == true || projects[i].Open == true {
 			proj = append(proj, projects[i])
 		}
@@ -267,7 +268,7 @@ func allprojectsHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		projLimit = proj[:returnLimit]
 	}
-	
+
 	t, _ := json.Marshal(projLimit)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -278,7 +279,7 @@ func allprojectsHandler(w http.ResponseWriter, r *http.Request) {
 func allissuesHandler(w http.ResponseWriter, r *http.Request) {
 
 	includeclosed, err := strconv.ParseBool(r.FormValue("c"))
-	
+
 	if err != nil {
 		includeclosed = false
 	}
@@ -298,7 +299,7 @@ func allissuesHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		issLimit = iss[:returnLimit]
 	}
-	
+
 	t, _ := json.Marshal(issLimit)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -308,13 +309,13 @@ func allissuesHandler(w http.ResponseWriter, r *http.Request) {
 // Returns all issues for supplied projectid
 func issuesbyprojectHandler(w http.ResponseWriter, r *http.Request) {
 	var iss = []Issue{}
-	
+
 	includeclosed, err := strconv.ParseBool(r.FormValue("c"))
-	
+
 	if err != nil {
 		includeclosed = false
 	}
-	
+
 	id, err := strconv.ParseInt(r.FormValue("q"), 10, 64)
 
 	if err == nil {
@@ -358,9 +359,9 @@ func notesbyissueHandler(w http.ResponseWriter, r *http.Request) {
 func issuessearchHandler(w http.ResponseWriter, r *http.Request) {
 	var iss = []Issue{}
 	term := r.FormValue("q")
-	
+
 	includeclosed, err := strconv.ParseBool(r.FormValue("c"))
-	
+
 	if err != nil {
 		includeclosed = false
 	}
@@ -407,7 +408,7 @@ func issuessearchHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		issLimit = iss[:returnLimit]
 	}
-	
+
 	t, _ := json.Marshal(issLimit)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -420,9 +421,9 @@ func issuessearchHandler(w http.ResponseWriter, r *http.Request) {
 func projectssearchHandler(w http.ResponseWriter, r *http.Request) {
 	var proj = []Project{}
 	term := r.FormValue("q")
-	
+
 	includeclosed, err := strconv.ParseBool(r.FormValue("c"))
-	
+
 	if err != nil {
 		includeclosed = false
 	}
@@ -468,14 +469,13 @@ func projectssearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	sort.Sort(ProjectByTimeDesc(proj))
 
-	
 	var projLimit = []Project{}
 	if len(proj) < returnLimit {
 		projLimit = proj
 	} else {
 		projLimit = proj[:returnLimit]
 	}
-	
+
 	t, _ := json.Marshal(projLimit)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -483,7 +483,7 @@ func projectssearchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // Generic method for saving a note
-// it generates the new ID itself 
+// it generates the new ID itself
 func savenote(n Note) {
 	var topid int64
 	topid = -1
@@ -635,7 +635,10 @@ func saveprojectHandler(w http.ResponseWriter, r *http.Request) {
 		go writeProjects()
 	}
 
-	t, _ := json.Marshal(response)
+	t, err := json.Marshal(response)
+	if err != nil {
+		fmt.Printf(err.Error())
+	}
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, string(t))
 }
@@ -687,7 +690,7 @@ func closeprojectHandler(w http.ResponseWriter, r *http.Request) {
 				projects[i].Open = false
 			}
 		}
-		
+
 		for i := range issues {
 			if issues[i].Projectid == projectid {
 				issues[i].Open = false
@@ -726,7 +729,7 @@ func main() {
 	flag.Parse()
 
 	setup()
-	//displayListening()
+	displayListening()
 
 	http.HandleFunc("/allprojects/", allprojectsHandler)
 	http.HandleFunc("/allissues/", allissuesHandler)
